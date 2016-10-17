@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
-#include <windows.h>
+#ifdef __WINDOWS_
+    #include <windows.h>
+#endif
 using namespace std;
 
 #define showtime printf("time = %.15f\n", clock() / (double)CLOCKS_PER_SEC);
