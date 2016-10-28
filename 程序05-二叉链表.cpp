@@ -21,137 +21,137 @@ const int inf = 0x3f3f3f3f;
 
 struct BitNode
 {
-	char data;
-	BitNode *lchild, *rchild;
+    char data;
+    BitNode *lchild, *rchild;
 
-	BitNode() {}
-	BitNode(char a, BitNode* l, BitNode* r)
-	{
-		data = a; lchild = l; rchild = r;
-	}
+    BitNode() {}
+    BitNode(char a, BitNode* l, BitNode* r)
+    {
+        data = a; lchild = l; rchild = r;
+    }
 };
 
 typedef BitNode *BitTree;
 
 bool build(BitTree &rt, char *str, int &pos)
 {
-	char ch = str[pos];
-	if(ch == '0')
-	{
-		rt = 0;
-		return false;
-	}
+    char ch = str[pos];
+    if(ch == '0')
+    {
+        rt = 0;
+        return false;
+    }
 
-	pos++;
-	if(ch == '#') rt = 0;
-	else
-	{
-		rt = new BitNode;
-		if(!rt) return false;
-		rt -> data = ch;
+    pos++;
+    if(ch == '#') rt = 0;
+    else
+    {
+        rt = new BitNode;
+        if(!rt) return false;
+        rt -> data = ch;
 
-		bool l_state = build(lson, str, pos);
-		bool r_state = build(rson, str, pos);
+        bool l_state = build(lson, str, pos);
+        bool r_state = build(rson, str, pos);
 
-		if(!l_state || !r_state) return false;
-	}
-	return true;
+        if(!l_state || !r_state) return false;
+    }
+    return true;
 }
 
 void print(BitTree &rt)
 {
-	if(rt)
-	{
-		printf("%c(", rt -> data);
+    if(rt)
+    {
+        printf("%c(", rt -> data);
 
-		print(lson);
-		printf(", ");
-		print(rson);
-		printf(")");
-	}
-	else printf("#");
+        print(lson);
+        printf(", ");
+        print(rson);
+        printf(")");
+    }
+    else printf("#");
 }
 
 void destroy(BitTree &rt)
 {
-	if(rt)
-	{
-		destroy(lson);
-		destroy(rson);
-		delete rt;
-		rt = 0;
-	}
+    if(rt)
+    {
+        destroy(lson);
+        destroy(rson);
+        delete rt;
+        rt = 0;
+    }
 }
 
 void pre_order(BitTree rt)
 {
-	if(rt)
-	{
-		printf("%c", rt -> data);
-		pre_order(lson);
-		pre_order(rson);
-	}
+    if(rt)
+    {
+        printf("%c", rt -> data);
+        pre_order(lson);
+        pre_order(rson);
+    }
 }
 
 void in_order(BitTree rt)
 {
-	if(rt)
-	{
-		in_order(lson);
-		printf("%c", rt -> data);
-		in_order(rson);
-	}
+    if(rt)
+    {
+        in_order(lson);
+        printf("%c", rt -> data);
+        in_order(rson);
+    }
 }
 
 void post_order(BitTree rt)
 {
-	if(rt)
-	{
-		post_order(lson);
-		post_order(rson);
-		printf("%c", rt -> data);
-	}
+    if(rt)
+    {
+        post_order(lson);
+        post_order(rson);
+        printf("%c", rt -> data);
+    }
 }
 
 void count_leaf(BitTree rt, int &cnt)
 {
-	if(rt)
-	{
-		if(!lson && !rson) cnt++;
-		count_leaf(lson, cnt);
-		count_leaf(rson, cnt);
-	}
+    if(rt)
+    {
+        if(!lson && !rson) cnt++;
+        count_leaf(lson, cnt);
+        count_leaf(rson, cnt);
+    }
 }
 
 int get_depth(BitTree rt)
 {
-	int ret(0);
-	if(!rt) return 0;
-	else
-	{
-		int left_depth = get_depth(lson);
-		int right_depth = get_depth(rson);
-		ret = 1 + max(left_depth, right_depth);
-	}
-	return ret;
+    int ret(0);
+    if(!rt) return 0;
+    else
+    {
+        int left_depth = get_depth(lson);
+        int right_depth = get_depth(rson);
+        ret = 1 + max(left_depth, right_depth);
+    }
+    return ret;
 }
 
 BitTree copy(BitTree rt)
 {
-	if(!rt) return 0;
-	BitTree new_root = new BitNode;
-	if(!new_root) return 0;
+    if(!rt) return 0;
+    BitTree new_root = new BitNode;
+    if(!new_root) return 0;
 
-	new_root -> data = rt -> data;
-	new_root -> lchild = copy(lson);
-	new_root -> rchild = copy(rson);
+    new_root -> data = rt -> data;
+    new_root -> lchild = copy(lson);
+    new_root -> rchild = copy(rson);
 
-	return new_root;
+    return new_root;
 }
 
 void solve()
 {
-	BitTree T;
+    BitTree T;
     char buf[maxn];
     int pos(0), cnt(0);
 
