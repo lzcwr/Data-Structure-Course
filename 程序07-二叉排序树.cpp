@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #ifdef __WINDOWS_
-#include <windows.h>
+    #include <windows.h>
 #endif
 using namespace std;
 
