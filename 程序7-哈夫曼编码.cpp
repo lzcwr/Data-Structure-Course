@@ -142,9 +142,9 @@ void solve()
     CharWeight CW[200];
     int cnt;
 
-    if((fp = fopen("Æµ¶È.txt", "r")) == 0)
+    if((fp = fopen("é¢‘åº¦.txt", "r")) == 0)
     {
-        printf("´ò¿ª¡°Æµ¶È.txt¡±ÎÄ¼şÊ§°Ü");
+        printf("æ‰“å¼€â€œé¢‘åº¦.txtâ€æ–‡ä»¶å¤±è´¥");
         system("pause");
         return ;
     }
@@ -167,15 +167,15 @@ void solve()
     HuffmanCoding(HT, HC, CW, cnt) ;
     FILE *fin, *fout;
 
-    if((fin = fopen("Ô´Âë.txt", "r")) == 0)
+    if((fin = fopen("æºç .txt", "r")) == 0)
     {
-        printf("´ò¿ª¡°Ô´Âë.txt¡±ÎÄ¼şÊ§°Ü");
+        printf("æ‰“å¼€â€œæºç .txtâ€æ–‡ä»¶å¤±è´¥");
         system("pause");
         return ;
     }
-    if((fout = fopen("±àÂë.txt", "w")) == 0)
+    if((fout = fopen("ç¼–ç .txt", "w")) == 0)
     {
-        printf("´´½¨¡°±àÂë.txt¡±ÎÄ¼şÊ§°Ü");
+        printf("åˆ›å»ºâ€œç¼–ç .txtâ€æ–‡ä»¶å¤±è´¥");
         system("pause");
         return ;
     }
@@ -193,15 +193,15 @@ void solve()
     fclose(fin);
     fclose(fout);
 
-    if((fin = fopen("±àÂë.txt", "r")) == 0)
+    if((fin = fopen("ç¼–ç .txt", "r")) == 0)
     {
-        printf("´ò¿ª¡°±àÂë.txt¡±ÎÄ¼şÊ§°Ü");
+        printf("æ‰“å¼€â€œç¼–ç .txtâ€æ–‡ä»¶å¤±è´¥");
         system("pause");
         return ;
     }
-    if((fout = fopen("½âÂë.txt", "w")) == 0)
+    if((fout = fopen("è§£ç .txt", "w")) == 0)
     {
-        printf("´´½¨¡°½âÂë.txt¡±ÎÄ¼şÊ§°Ü");
+        printf("åˆ›å»ºâ€œè§£ç .txtâ€æ–‡ä»¶å¤±è´¥");
         system("pause");
         return ;
     }
