@@ -41,7 +41,7 @@ private:
     AVLTreeNode<T>* root;
 
 private:
-    void print(AVLTreeNode<T>* pnode,T key, int direction) const;
+    void print(AVLTreeNode<T>* tree) const;
     void destory(AVLTreeNode<T>* & pnode);
 
     int height(AVLTreeNode<T>* pnode) ;
@@ -63,86 +63,86 @@ private:
 
 };
 
-/*¹¹Ôìº¯Êı*/
+/*æ„é€ å‡½æ•°*/
 template <typename T>
-AVLTree<T>::AVLTree() :root(nullptr){};
+AVLTree<T>::AVLTree() :root(NULL){}
 
-/*Îö¹¹º¯Êı*/
+/*ææ„å‡½æ•°*/
 template <typename T>
 AVLTree<T>::~AVLTree()
 {
     destory(root);
 }
 
-/*·µ»ØÁ½ÕßÖĞµÄ½Ï´óÕß*/
+/*è¿”å›ä¸¤è€…ä¸­çš„è¾ƒå¤§è€…*/
 template<typename T>
 int AVLTree<T>::max(int a, int b)
 {
     return a > b ? a : b;
-};
+}
 
-/*·µ»ØÊ÷ÖĞ×î´ó½ÚµãÖµ*/
+/*è¿”å›æ ‘ä¸­æœ€å¤§èŠ‚ç‚¹å€¼*/
 template <typename T>
 AVLTreeNode<T>* AVLTree<T>::maximum(AVLTreeNode<T>* pnode)const
 {
-    if(pnode != nullptr)
+    if(pnode != NULL)
     {
-        while (pnode -> rchild != nullptr)
+        while (pnode -> rchild != NULL)
             pnode = pnode -> rchild;
         return pnode;
     }
-    return nullptr;
-};
+    return NULL;
+}
 
 template<typename T>
 T AVLTree<T>::maximum()
 {
     AVLTreeNode<T>* presult = maximum(root);
-    if(presult != nullptr)
+    if(presult != NULL)
         return presult -> key;
-};
+}
 
-/*·µ»ØÊ÷ÖĞ×îĞ¡½ÚµãÖµ*/
+/*è¿”å›æ ‘ä¸­æœ€å°èŠ‚ç‚¹å€¼*/
 template <typename T>
 AVLTreeNode<T>* AVLTree<T>::minimum(AVLTreeNode<T>* pnode)const
 {
-    if(pnode != nullptr)
+    if(pnode != NULL)
     {
-        while (pnode -> lchild != nullptr)
+        while (pnode -> lchild != NULL)
             pnode = pnode -> lchild;
         return pnode;
     }
-    return nullptr;
-};
+    return NULL;
+}
 
 template<typename T>
 T AVLTree<T>::minimum()
 {
     AVLTreeNode<T>* presult = minimum(root);
-    if(presult != nullptr)
+    if(presult != NULL)
         return presult -> key;
-};
+}
 
-/*·µ»ØÒ»¿ÃÊ÷µÄ¸ß¶È*/
+/*è¿”å›ä¸€æ£µæ ‘çš„é«˜åº¦*/
 template <typename T>
 int AVLTree<T>::height(AVLTreeNode<T>* pnode)
 {
-    if(pnode != nullptr)
+    if(pnode != NULL)
     {
         return pnode -> height;
     }
     return 0;
-};
+}
 
 template <typename T>
 int AVLTree<T>::height()
 {
     return height(root);
-};
+}
 
-/*×óĞı×ª²Ù×÷*/
-/*pnodeÎª×îĞ¡Ê§ºâ×ÓÊ÷µÄ¸ù½Úµã*/
-/*·µ»ØĞı×ªºóµÄ¸ù½Úµã*/
+/*å·¦æ—‹è½¬æ“ä½œ*/
+/*pnodeä¸ºæœ€å°å¤±è¡¡å­æ ‘çš„æ ¹èŠ‚ç‚¹*/
+/*è¿”å›æ—‹è½¬åçš„æ ¹èŠ‚ç‚¹*/
 template<typename T>
 AVLTreeNode<T>* AVLTree<T>::leftRotation(AVLTreeNode<T>* proot)
 {
@@ -154,11 +154,11 @@ AVLTreeNode<T>* AVLTree<T>::leftRotation(AVLTreeNode<T>* proot)
     prchild -> height = max(height(prchild -> lchild), height(prchild -> rchild)) + 1;
 
     return prchild;
-};
+}
 
-/*ÓÒĞı×ª²Ù×÷*/
-/*pnodeÎª×îĞ¡Ê§ºâ×ÓÊ÷µÄ¸ù½Úµã*/
-/*·µ»ØĞı×ªºóµÄ¸ù½Úµã*/
+/*å³æ—‹è½¬æ“ä½œ*/
+/*pnodeä¸ºæœ€å°å¤±è¡¡å­æ ‘çš„æ ¹èŠ‚ç‚¹*/
+/*è¿”å›æ—‹è½¬åçš„æ ¹èŠ‚ç‚¹*/
 template <typename  T>
 AVLTreeNode<T>* AVLTree<T>::rightRotation(AVLTreeNode<T>*proot)
 {
@@ -170,36 +170,36 @@ AVLTreeNode<T>* AVLTree<T>::rightRotation(AVLTreeNode<T>*proot)
     plchild -> height = max(height(plchild -> lchild), height(plchild -> rchild)) + 1;
 
     return plchild;
-};
+}
 
-/*ÏÈ×óºóÓÒ×öĞı×ª*/
-/*²ÎÊıprootÎª×îĞ¡Ê§ºâ×ÓÊ÷µÄ¸ù½Úµã*/
-/*·µ»ØĞı×ªºóµÄ¸ù½Úµã*/
+/*å…ˆå·¦åå³åšæ—‹è½¬*/
+/*å‚æ•°prootä¸ºæœ€å°å¤±è¡¡å­æ ‘çš„æ ¹èŠ‚ç‚¹*/
+/*è¿”å›æ—‹è½¬åçš„æ ¹èŠ‚ç‚¹*/
 template <typename T>
 AVLTreeNode<T>* AVLTree<T>::leftRightRotation(AVLTreeNode<T>* proot)
 {
     proot -> lchild= leftRotation(proot -> lchild);
     return rightRotation(proot);
-};
-/*ÏÈÓÒĞıÔÙ×óĞı*/
-/*²ÎÊıprootÎª×îĞ¡Ê§ºâ×ÓÊ÷µÄ¸ù½Úµã*/
-/*·µ»ØĞı×ªºóµÄ¸ù½Úµã*/
+}
+/*å…ˆå³æ—‹å†å·¦æ—‹*/
+/*å‚æ•°prootä¸ºæœ€å°å¤±è¡¡å­æ ‘çš„æ ¹èŠ‚ç‚¹*/
+/*è¿”å›æ—‹è½¬åçš„æ ¹èŠ‚ç‚¹*/
 template<typename T>
 AVLTreeNode<T>* AVLTree<T>::rightLeftRotation(AVLTreeNode<T>* proot)
 {
     proot -> rchild = rightRotation(proot -> rchild);
     return leftRotation(proot);
-};
+}
 
-/*²åÈë²Ù×÷*/
-/*µİ¹éµØ½øĞĞ²åÈë*/
-/*·µ»Ø²åÈëºóµÄ¸ù½Úµã*/
+/*æ’å…¥æ“ä½œ*/
+/*é€’å½’åœ°è¿›è¡Œæ’å…¥*/
+/*è¿”å›æ’å…¥åçš„æ ¹èŠ‚ç‚¹*/
 template <typename T>
 AVLTreeNode<T>* AVLTree<T>::insert(AVLTreeNode<T>* &pnode, T key)
 {
-    if(pnode == nullptr)
+    if(pnode == NULL)
     {
-        pnode = new AVLTreeNode<T>(key, nullptr, nullptr);
+        pnode = new AVLTreeNode<T>(key, NULL, NULL);
     }
     else if(key > pnode -> key)
     {
@@ -225,24 +225,24 @@ AVLTreeNode<T>* AVLTree<T>::insert(AVLTreeNode<T>* &pnode, T key)
     }
     pnode -> height = max(height(pnode -> lchild), height(pnode -> rchild)) + 1;
     return pnode;
-};
+}
 
 template <typename T>
 void AVLTree<T>::insert(T key)
 {
     insert(root, key);
-};
+}
 
-/*µİ¹é²éÕÒÖ¸¶¨ÔªËØ*/
+/*é€’å½’æŸ¥æ‰¾æŒ‡å®šå…ƒç´ */
 template <typename T>
 AVLTreeNode<T>* AVLTree<T>::search_recurse(T key)
 {
     return search_recurse(root,key);
-};
+}
 template <typename T>
 AVLTreeNode<T>* AVLTree<T>::search_recurse(AVLTreeNode<T>* pnode, T key) const
 {
-    if(pnode != nullptr)
+    if(pnode != NULL)
     {
         if(key == pnode -> key)
             return pnode;
@@ -251,19 +251,19 @@ AVLTreeNode<T>* AVLTree<T>::search_recurse(AVLTreeNode<T>* pnode, T key) const
         else
             return search_recurse(pnode -> lchild,key);
     }
-    return nullptr;
-};
+    return NULL;
+}
 
-/*·Çµİ¹é²éÕÒÖ¸¶¨ÔªËØ*/
+/*éé€’å½’æŸ¥æ‰¾æŒ‡å®šå…ƒç´ */
 template <typename T>
 AVLTreeNode<T>* AVLTree<T>::search_iterator(T key)
 {
     return search_iterator(root, key);
-};
+}
 template <typename T>
 AVLTreeNode<T>* AVLTree<T>::search_iterator(AVLTreeNode<T>* pnode, T key) const
 {
-    while (pnode != nullptr)
+    while (pnode != NULL)
     {
         if(pnode -> key == key)
             return pnode;
@@ -272,18 +272,18 @@ AVLTreeNode<T>* AVLTree<T>::search_iterator(AVLTreeNode<T>* pnode, T key) const
         else
             pnode = pnode -> lchild;
     }
-    return nullptr;
-};
+    return NULL;
+}
 
-/*É¾³ıÖ¸¶¨ÔªËØ*/
+/*åˆ é™¤æŒ‡å®šå…ƒç´ */
 template<typename T>
 AVLTreeNode<T>* AVLTree<T>::remove(AVLTreeNode<T>* & pnode, T key)
 {
-    if(pnode != nullptr)
+    if(pnode != NULL)
     {
         if(key == pnode -> key)
         {
-            if(pnode -> lchild != nullptr&&pnode -> rchild != nullptr)
+            if(pnode -> lchild != NULL&&pnode -> rchild != NULL)
             {
                 if(height(pnode -> lchild) > height(pnode -> rchild))
                 {
@@ -301,12 +301,12 @@ AVLTreeNode<T>* AVLTree<T>::remove(AVLTreeNode<T>* & pnode, T key)
             else
             {
                 AVLTreeNode<T> * ptemp = pnode;
-                if(pnode -> lchild != nullptr)
+                if(pnode -> lchild != NULL)
                     pnode = pnode -> lchild;
-                else if(pnode -> rchild != nullptr)
+                else if(pnode -> rchild != NULL)
                     pnode = pnode -> rchild;
                 delete ptemp;
-                return nullptr;
+                return NULL;
             }
         }
         else if(key > pnode -> key)
@@ -333,47 +333,62 @@ AVLTreeNode<T>* AVLTree<T>::remove(AVLTreeNode<T>* & pnode, T key)
         }
         return pnode;
     }
-    return nullptr;
-};
+    return NULL;
+}
 template<typename T>
 void AVLTree<T>::remove(T key)
 {
     root = remove(root, key);
-};
+}
 
+template <class T>
+void AVLTree<T>::print(AVLTreeNode<T>* tree) const
+{
+    if(tree != NULL)
+    {
+    	cout << tree -> key << '(';
+        print(tree -> lchild);
+        printf(",");
+        print(tree -> rchild);
+        printf(")");
+    }
+    else printf("#");
+}
 
-/*Ïú»ÙAVLÊ÷*/
+template <class T>
+void AVLTree<T>::print() 
+{
+    print(root);
+}
+
+/*é”€æ¯AVLæ ‘*/
 template<typename T>
 void AVLTree<T>::destory(AVLTreeNode<T>* & pnode)
 {
-    if(pnode != nullptr)
+    if(pnode != NULL)
     {
         destory(pnode -> lchild);
         destory(pnode -> rchild);
         delete pnode;
-        pnode = nullptr;
+        pnode = NULL;
     }
-};
+}
 template<typename T>
 void AVLTree<T>::destory()
 {
     destory(root);
 }
 
+char str[maxn];
 void solve()
 {
-    AVLTree<int> a;
-    for (int i = 0; i < 10; i++)
-        a.insert(i);
-    cout << "Ê÷¸ß£º" << a.height() << endl;
-  
-    cout << "É¾³ıÔªËØ10"<<endl;
-    a.remove(10);
- 
-    AVLTreeNode<int>* b = a.search_iterator(10);
- 
-    if (b != nullptr) cout << b->key;
-    else cout << "ÎŞ´ËÔªËØ" << endl;
+    AVLTree<char> T;
+    scanf("%s", str);
+    int len = strlen(str);
+    for(int i = 0; i < len; i++)
+    	T.insert(str[i]);
+    T.print();
+    T.destory();
     system("pause");
 }
 
