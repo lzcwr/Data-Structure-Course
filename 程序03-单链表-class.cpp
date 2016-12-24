@@ -17,158 +17,157 @@ const int INC_SIZE = 10;
 
 typedef struct LNode
 {
-	int	data;
-	LNode *next;
+    int data;
+    LNode *nxt;
 } LNode, *Link, *Position;
 
 class LinkList
 {
 public:
-	Link head, tail;
-	int lenth;
-	Link current;
+    Link head, tail;
+    int length;
+    Link cnr;
 
 public:
-	LinkList()
-	{
-		head = new LNode;
-		if(!head) exit(-1);
+    LinkList()
+    {
+        head = new LNode;
+        if(!head) exit(-1);
 
-		head -> next = 0;
-		tail = head;
-		current = head;
-		lenth = 0;
-	}
-	~LinkList()
-	{
-		Link p;
-		while(head)
-		{
-			p = head -> next;
-			delete head;
-			head = p;
-		}
-	}
+        head -> nxt = 0;
+        tail = head;
+        cnr = head;
+        length = 0;
+    }
+    ~LinkList()
+    {
+        Link p;
+        while(head)
+        {
+            p = head -> nxt;
+            delete head;
+            head = p;
+        }
+    }
 
-	int LocatePos(int i)
-	{
-		int k(0);
-		current = head;
-		while(current -> next && k < i)
-		{
-			current = current -> next;
-			k++;
-		}
+    int LocatePos(int i)
+    {
+        int k(0);
+        cnr = head;
+        while(cnr -> nxt && k < i)
+        {
+            cnr = cnr -> nxt;
+            k++;
+        }
 
-		if(k != i) return 0;
-		return 1;
-	}
+        if(k != i) return 0;
+        return 1;
+    }
 
-	int InsertAfter(int e)
-	{
-		Link s;
-		if(!current) return false;
-		s = new LNode;
+    int InsertAfter(int e)
+    {
+        Link s;
+        if(!cnr) return false;
+        s = new LNode;
 
-		if(!s) return false;
-		s -> data = e;
-		s -> next = current -> next;
-		current -> next = s;
+        if(!s) return false;
+        s -> data = e;
+        s -> nxt = cnr -> nxt;
+        cnr -> nxt = s;
 
-		if(tail == current) tail = s;
-		current = s;
-		lenth++;
-	}
+        if(tail == cnr) tail = s;
+        cnr = s;
+        length++;
+    }
 
-	void Print()
-	{
-		Link p;
-		p = head;
-		while(p -> next)
-		{
-			p = p -> next;
-			printf("%d, ", p -> data);
-		}
-	}
+    void Print()
+    {
+        Link p;
+        p = head;
+        while(p -> nxt)
+        {
+            p = p -> nxt;
+            printf("%d, ", p -> data);
+        }
+    }
 
-	bool LocateElem(int e);
-	int ListLenth();
-	void ListReverse();
+    bool LocateElem(int e);
+    int ListLenth();
+    void ListReverse();
 };
 
 
 bool LinkList::LocateElem(int e)
 {
-	Link p;
+    Link p;
 
-	p = head -> next;
-	while(p)
-	{
-		if(p -> data == e)
-		{
-			current = p;
-			return true;
-		}
-		p = p -> next;
-	}
-	return false;
+    p = head -> nxt;
+    while(p)
+    {
+        if(p -> data == e)
+        {
+            cnr = p;
+            return true;
+        }
+        p = p -> nxt;
+    }
+    return false;
 }
 
 int LinkList::ListLenth()
 {
-	return lenth;
+    return length;
 }
 
 void LinkList::ListReverse()
 {
-	Link p, q;
-	p = head -> next;
-	tail = p;
-	head -> next = 0;
-	while(p)
-	{
-		q = p -> next;
-		p -> next = head -> next;
-		head -> next = p;
-		p = q;
-	}
+    Link p, q;
+    p = head -> nxt;
+    tail = p;
+    head -> nxt = 0;
+    while(p)
+    {
+        q = p -> nxt;
+        p -> nxt = head -> nxt;
+        head -> nxt = p;
+        p = q;
+    }
 }
 
 int main()
 {
-	FILE *fp;
-	LinkList L;
-	int e;
+    FILE *fp;
+    LinkList L;
+    int e;
 
-	if((fp = fopen("a.txt", "r")) == 0)
-	{
-		printf("´ò¿ªÎÄ¼şÊ§°Ü");
-		system("pause");
-		return 0;
-	}
+    if((fp = fopen("a.txt", "r")) == 0)
+    {
+        printf("æ‰“å¼€æ–‡ä»¶å¤±è´¥");
+        system("pause");
+        return 0;
+    }
 
-	L.LocatePos(0);
-	while(fscanf(fp, "%d", &e) != EOF)
-		L.InsertAfter(e);
+    L.LocatePos(0);
+    while(fscanf(fp, "%d", &e) != EOF)
+        L.InsertAfter(e);
 
-	printf("Ô­Ê¼Á´±í: ");
-	L.Print();
+    printf("åŸå§‹é“¾è¡¨: ");
+    L.Print();
 
-	printf("\nÁ´±í³¤¶È£º%d\n", L.ListLenth());
+    printf("\né“¾è¡¨é•¿åº¦ï¼š%d\n", L.ListLenth());
 
-	printf("\nÊäÈëÒª²éÕÒµÄÊı: ");
-	scanf("%d", &e);
-	if(L.LocateElem(e) == 1)
-		printf("²éÕÒ³É¹¦!\n");
-	else
-		printf("²éÕÒÊ§°Ü!\n");
+    printf("\nè¾“å…¥è¦æŸ¥æ‰¾çš„æ•°: ");
+    scanf("%d", &e);
+    if(L.LocateElem(e) == 1)
+        printf("æŸ¥æ‰¾æˆåŠŸ!\n");
+    else
+        printf("æŸ¥æ‰¾å¤±è´¥!\n");
 
-	L.ListReverse();
-	printf("\nÄæ×ªÁ´±í: ");
-	L.Print();
-	
-	system("pause");
+    L.ListReverse();
+    printf("\né€†è½¬é“¾è¡¨: ");
+    L.Print();
+    
+    system("pause");
 
-	return 0;
+    return 0;
 }
-
