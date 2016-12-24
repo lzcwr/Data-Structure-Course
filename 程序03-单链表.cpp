@@ -17,186 +17,187 @@ const int INC_SIZE = 10;
 
 typedef struct LNode
 {
-	int	data;
-	LNode *next;
+    int data;
+    LNode *nxt;
 } LNode, *Link, *Position;
 
 typedef struct
 {
-	Link head, tail;
-	int lenth;
-	Link current;
+    Link head, tail;
+    int length;
+    Link cur;
 } LinkList;
 
 bool InitList(LinkList &L)
 {
-	L.head = new LNode;
-	if(!L.head) return false;
-	L.head -> next = 0;
+    L.head = new LNode;
+    if(!L.head) return false;
+    L.head -> nxt = 0;
 
-	L.tail = L.head;
-	L.lenth = 0;
-	L.current = L.head;
-	return true;
+    L.tail = L.head;
+    L.length = 0;
+    L.cur = L.head;
+    return true;
 }
 
+void DestroyList(LinkList &L)
 {
-	Link p;
-	p = L.head;
-	while(p)
-	{
-		L.head = L.head -> next;
-		delete p;
-		p = L.head;
-	}
+    Link p;
+    p = L.head;
+    while(p)
+    {
+        L.head = L.head -> nxt;
+        delete p;
+        p = L.head;
+    }
 }
 
 void ClearList(LinkList &L)
 {
-	Link p;
-	while(L.head -> next)
-	{
-		p = L.head -> next;
-		L.head -> next = p -> next;
-		delete p;
-	}
+    Link p;
+    while(L.head -> nxt)
+    {
+        p = L.head -> nxt;
+        L.head -> nxt = p -> nxt;
+        delete p;
+    }
 }
 
 bool LocatePos( LinkList &L, int i )
 {
-	int k(0);
-	L.current = L.head;
-	while(L.current -> next && k < i)
-	{
-		L.current = L.current -> next;
-		k++;
-	}
+    int k(0);
+    L.cur = L.head;
+    while(L.cur -> nxt && k < i)
+    {
+        L.cur = L.cur -> nxt;
+        k++;
+    }
 
-	if(k != i) return false;
-	return true;
+    if(k != i) return false;
+    return true;
 }
 
 int InsertAfter(LinkList &L, int e)
 {
-	Link s;
+    Link s;
 
-	if(!L.current)
-		return 0;
+    if(!L.cur)
+        return 0;
 
-	s = new LNode;
-	if(!s) return 0;
-	s -> data = e;
+    s = new LNode;
+    if(!s) return 0;
+    s -> data = e;
 
-	s -> next = L.current -> next;
-	L.current -> next = s;
+    s -> nxt = L.cur -> nxt;
+    L.cur -> nxt = s;
 
-	if(L.tail == L.current)
-		L.tail = s;
+    if(L.tail == L.cur)
+        L.tail = s;
 
-	L.current = s;
-	L.lenth++;
-	return 1;
+    L.cur = s;
+    L.length++;
+    return 1;
 }
 
 void Show(LinkList L)
 {
-	Link p;
+    Link p;
 
-	printf("Á´±íÓĞ%d¸öÔªËØ£º", L.lenth);
-	p = L.head;
-	while(p -> next)
-	{
-		p = p -> next;
-		printf("%d, ", p -> data);
-	}
-	printf("\n\n");
+    printf("é“¾è¡¨æœ‰%dä¸ªå…ƒç´ ï¼š", L.length);
+    p = L.head;
+    while(p -> nxt)
+    {
+        p = p -> nxt;
+        printf("%d, ", p -> data);
+    }
+    printf("\n\n");
 }
 
 int LocateElem(LinkList &L, int e)
 {
-	L.current = L.head;
-	for(int i = 0; i <= L.lenth; i++)
-	{
-		if(L.current -> data==e) return i;
-		else L.current = L.current -> next;
-	}
-	return 0;
+    L.cur = L.head;
+    for(int i = 0; i <= L.length; i++)
+    {
+        if(L.cur -> data==e) return i;
+        else L.cur = L.cur -> nxt;
+    }
+    return 0;
 }
 
 int ListLenth(LinkList L)
 {
-	int i = 0;
-	L.current = L.head;
-	while(L.current != L.tail)
-	{
-		L.current = L.current -> next;
-		i++;
-	}
-	return i;
+    int i = 0;
+    L.cur = L.head;
+    while(L.cur != L.tail)
+    {
+        L.cur = L.cur -> nxt;
+        i++;
+    }
+    return i;
 }
 
 void ListReverse(LinkList &L)
 {
-	Link q, p, temp;
-	L.lenth=ListLenth(L);
-	q = L.head;
-	p = q -> next;
-	temp = p -> next;
-	p -> next = NULL;
-	for(int i = 1; i < L.lenth; i++)
-	{
-		q = temp -> next;
-		temp -> next = p;
-		p = temp;
-		temp = q;
-	}
+    Link q, p, temp;
+    L.length=ListLenth(L);
+    q = L.head;
+    p = q -> nxt;
+    temp = p -> nxt;
+    p -> nxt = NULL;
+    for(int i = 1; i < L.length; i++)
+    {
+        q = temp -> nxt;
+        temp -> nxt = p;
+        p = temp;
+        temp = q;
+    }
 
-	L.head -> next = p;
+    L.head -> nxt = p;
 }
 
 int main()
 {
-	FILE *fp;
-	LinkList L;
-	int e;
+    FILE *fp;
+    LinkList L;
+    int e;
 
-	if((fp = fopen("a.txt", "r")) == 0)
-	{
-		printf("´ò¿ªÎÄ¼şÊ§°Ü");
-		system("pause");
-		return -1;
-	}
+    if((fp = fopen("a.txt", "r")) == 0)
+    {
+        printf("æ‰“å¼€æ–‡ä»¶å¤±è´¥");
+        system("pause");
+        return -1;
+    }
 
-	if(!InitList(L))
-	{
-		printf("³õÊ¼»¯Á´±íÊ§°Ü\n");
-		system("pause");
-		return -2;
-	}
+    if(!InitList(L))
+    {
+        printf("åˆå§‹åŒ–é“¾è¡¨å¤±è´¥\n");
+        system("pause");
+        return -2;
+    }
 
-	LocatePos(L, 0);
-	while(fscanf(fp, "%d", &e) != EOF)
-		InsertAfter(L, e);
+    LocatePos(L, 0);
+    while(fscanf(fp, "%d", &e) != EOF)
+        InsertAfter(L, e);
 
-	printf("Ô­Ê¼Á´±í\n");
-	Show(L);
+    printf("åŸå§‹é“¾è¡¨\n");
+    Show(L);
 
-	printf("Á´±í³¤¶È£º%d\n", ListLenth(L));
+    printf("é“¾è¡¨é•¿åº¦ï¼š%d\n", ListLenth(L));
 
-	printf("ÊäÈëÒª²éÕÒµÄÊı: ");
-	scanf("%d", &e);
-	if(LocateElem(L, e))
-		printf("ÔªËØ%d--%dÔÚÁ´±íÖĞ\n", e, L.current -> data);
-	else
-		printf("ÔªËØ%d²»ÔÚÁ´±íÖĞ\n", e);
+    printf("è¾“å…¥è¦æŸ¥æ‰¾çš„æ•°: ");
+    scanf("%d", &e);
+    if(LocateElem(L, e))
+        printf("å…ƒç´ %d--%dåœ¨é“¾è¡¨ä¸­\n", e, L.cur -> data);
+    else
+        printf("å…ƒç´ %dä¸åœ¨é“¾è¡¨ä¸­\n", e);
 
-	ListReverse(L);
-	printf("\nÄæ×ªÁ´±í\n");
-	Show(L);
+    ListReverse(L);
+    printf("\né€†è½¬é“¾è¡¨\n");
+    Show(L);
 
-	DestroyList(L);
-	system("pause");
+    DestroyList(L);
+    system("pause");
 
-	return 0;
+    return 0;
 }
 
