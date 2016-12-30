@@ -49,7 +49,7 @@ void solve()
 {
     while(~scanf("%s%s", a, b))
     {
-    	printf("¸ø¶¨Á½¸ö×Ö·û´®µÄLCSÎª£º   "); 
+    	printf("ç»™å®šä¸¤ä¸ªå­—ç¬¦ä¸²çš„LCSä¸ºï¼š   "); 
         an = strlen(a);
         bn = strlen(b);
         for(int i = 0; i < an / 2; i++)
